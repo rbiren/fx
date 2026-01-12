@@ -42,8 +42,13 @@ swa deploy ./dist --api-location ./api --deployment-token <TOKEN> --env producti
 ```
 
 ## API
-The app uses the FRED API for exchange rate data. Requests are proxied through an Azure Function (`/api/fred/*`) to avoid CORS issues.
+The app uses two data sources for exchange rates, proxied through Azure Functions to avoid CORS issues:
 
-Series used:
-- `DEXCAUS` - CAD/USD exchange rate
-- `DEXUSEU` - EUR/USD exchange rate
+### FRED API (CAD/USD)
+- Endpoint: `/api/fred/*`
+- Series: `DEXCAUS` - CAD/USD exchange rate
+
+### ECB API (EUR/USD)
+- Endpoint: `/api/ecb`
+- Source: European Central Bank Statistics Data Warehouse
+- Series: `EXR/D.USD.EUR.SP00.A` - EUR/USD daily exchange rate

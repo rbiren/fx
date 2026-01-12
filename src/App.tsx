@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ExchangeRateCard } from './components/ExchangeRateCard';
 import { getExchangeRateData, getLatestAvailableDate, SERIES_IDS } from './services/fredApi';
+import { getEurUsdData } from './services/ecbApi';
 import type { ExchangeRateData } from './types';
 import './App.css';
 
@@ -78,9 +79,9 @@ function App() {
         setCadLoading(false);
       }
 
-      // Fetch EUR/USD data
+      // Fetch EUR/USD data from ECB
       try {
-        const eur = await getExchangeRateData(SERIES_IDS.EUR_USD, 150, endDate);
+        const eur = await getEurUsdData(150, endDate);
         setEurData(eur);
       } catch (err) {
         setEurError(err instanceof Error ? err.message : 'Failed to fetch EUR data');
@@ -106,7 +107,7 @@ function App() {
   return (
     <div className="app">
       <h1 className="app-title">Currency Exchange Rates Dashboard</h1>
-      <p className="app-subtitle">Live data from Federal Reserve Economic Data (FRED)</p>
+      <p className="app-subtitle">Live data from FRED and European Central Bank</p>
 
       <div className="date-selector">
         <label>Point in Time: </label>

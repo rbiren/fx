@@ -11,6 +11,15 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/fred/, '/fred'),
       },
+      '/api/ecb': {
+        target: 'https://data-api.ecb.europa.eu',
+        changeOrigin: true,
+        rewrite: (path) => {
+          const url = new URL(path, 'http://localhost');
+          const params = url.searchParams;
+          return `/service/data/EXR/D.USD.EUR.SP00.A?startPeriod=${params.get('startPeriod')}&endPeriod=${params.get('endPeriod')}&format=${params.get('format')}`;
+        },
+      },
     },
   },
 })
