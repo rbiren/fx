@@ -126,8 +126,8 @@ function App() {
           data={cadData}
           loading={cadLoading}
           error={cadError}
-          dataSource="Exchange Rates.org"
-          dataSourceUrl="https://exchange-rates.org"
+          dataSource="Federal Reserve Economic Data (FRED)"
+          dataSourceUrl="https://fred.stlouisfed.org/series/DEXCAUS"
           asOfDate={displayDate}
           selectedDate={parseLocalDate(selectedDate)}
         />
